@@ -22,3 +22,6 @@ target/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Ranking gerado em tempo de execucao
+ranking.json
