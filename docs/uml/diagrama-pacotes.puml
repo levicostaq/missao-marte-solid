@@ -1,0 +1,105 @@
+@startuml diagrama-pacotes
+' Diagrama de pacotes - Missão Marte Unifor (versão refatorada com SOLID)
+' Equipe: Levi Costa Queiroz, Pedro Nicolas, Leonardo Norões
+
+title Organização em pacotes - solidexercicio10
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam package {
+  BackgroundColor White
+  BorderColor #35506B
+}
+skinparam ArrowColor #35506B
+
+package "solidexercicio10" as raiz {
+  class Main <<entry point>> {
+    +main(args: String[]): void
+    .. monta as dependências ..
+    Console, MapaRenderer, TelaJogo
+    RankingArquivoJson -> RankingService
+    FabricaDeMissao, Random
+  }
+}
+
+package "solidexercicio10.service" as service {
+  class JogoService {
+    +executar(): void
+    -jogarPartida(): void
+    -executarTurnos(missao): boolean
+  }
+  class RankingService {
+    +listar(): List<RankingEntry>
+    +recorde(): RankingEntry
+    +classificaNoTop(pontuacao): boolean
+    +registrar(resultado): boolean
+    +resetar(): void
+  }
+  class FabricaDeMissao {
+    +criar(piloto, dificuldade, limites): Missao
+  }
+}
+
+package "solidexercicio10.presentation" as presentation {
+  class TelaJogo
+  class MapaRenderer
+  class Console
+}
+
+package "solidexercicio10.model" as model {
+  class Missao
+  class Nave
+  abstract class Passageiro
+  abstract class EntidadeMapa
+  enum Dificuldade
+  class RankingEntry
+  class ResultadoMissao
+}
+
+package "solidexercicio10.repository" as repository {
+  interface RankingRepository <<abstração>>
+  class RankingArquivoJson
+  class RankingEmMemoria
+}
+
+' Composição interna da apresentação
+TelaJogo *--> Console
+TelaJogo *--> MapaRenderer
+MapaRenderer --> Console
+
+' Dependências
+Main ..> service : instancia e inicia
+Main ..> presentation : monta a tela
+Main ..> repository : escolhe a implementação\nconcreta (único lugar)
+
+JogoService ..> model : lê e altera o estado da partida
+JogoService ..> presentation : pede entrada e exibe saída
+JogoService ..> RankingService
+
+FabricaDeMissao ..> model : cria nave, passageiros,\nasteroides e inimigos
+
+RankingService ..> RankingRepository : depende do CONTRATO (DIP)
+RankingService ..> model : RankingEntry, ResultadoMissao
+
+presentation ..> model : apenas consulta (somente leitura)
+
+RankingArquivoJson ..|> RankingRepository
+RankingEmMemoria ..|> RankingRepository
+repository ..> model : usa RankingEntry
+
+note right of RankingRepository
+  O serviço depende desta interface e
+  NUNCA das classes de persistência.
+  Trocar JSON por banco ou por memória
+  é mudar uma linha na Main.
+end note
+
+note bottom of model
+  model não depende de nenhum outro
+  pacote do projeto: nada de domínio
+  conhece console, arquivo ou menu.
+  Todas as setas apontam PARA cá.
+end note
+
+@enduml

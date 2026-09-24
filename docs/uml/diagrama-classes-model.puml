@@ -1,0 +1,224 @@
+@startuml diagrama-classes-model
+' Diagrama de classes do domínio - solidexercicio10.model
+' Missão Marte Unifor - versão refatorada com SOLID
+' Equipe: Levi Costa Queiroz, Pedro Nicolas, Leonardo Norões
+
+title Domínio do jogo - pacote solidexercicio10.model
+
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam packageStyle rectangle
+skinparam class {
+  BackgroundColor White
+  BorderColor #35506B
+  ArrowColor #35506B
+}
+
+interface Posicionavel {
+  +getX(): int
+  +getY(): int
+  +estaEm(x: int, y: int): boolean
+  +estaNaMesmaPosicaoDe(outro: Posicionavel): boolean
+}
+
+interface Movel {
+  +moverPara(novoX: int, novoY: int, limites: LimitesMapa): boolean
+}
+
+abstract class EntidadeMapa {
+  -x: int
+  -y: int
+  +getX(): int
+  +getY(): int
+  #definirPosicao(novoX: int, novoY: int): void
+  {abstract} +getSimbolo(): char
+  {abstract} +getDescricao(): String
+}
+
+abstract class Passageiro {
+  -nome: String
+  +getNome(): String
+  {abstract} +getPontuacao(): int
+  {abstract} +getTipo(): String
+}
+
+class Professor {
+  +getPontuacao(): int = 10
+  +getTipo(): String
+  +getSimbolo(): char = 'P'
+}
+
+class Engenheiro {
+  +getPontuacao(): int = 15
+  +getTipo(): String
+  +getSimbolo(): char = 'E'
+}
+
+class Astronauta {
+  +getPontuacao(): int = 20
+  +getTipo(): String
+  +getSimbolo(): char = 'T'
+}
+
+class Nave {
+  +{static} VIDAS_INICIAIS: int = 3
+  +{static} CAPACIDADE_PADRAO: int = 5
+  -id: String
+  -capacidade: int
+  -vidas: int
+  +getPassageiros(): List<Passageiro> {somente leitura}
+  +estaCheia(): boolean
+  +estaDestruida(): boolean
+  +embarcar(p: Passageiro): boolean
+  +perderVida(): void
+  +moverPara(...): boolean
+  +getSimbolo(): char = '@'
+}
+
+class Asteroide {
+  +getSimbolo(): char = '#'
+}
+
+class Inimigo {
+  +moverPara(...): boolean
+  +moverAleatoriamente(random: Random, limites: LimitesMapa): void
+  +getSimbolo(): char = 'X'
+}
+
+class Plataforma {
+  +getSimbolo(): char = 'L'
+}
+
+class Missao {
+  +{static} CUSTO_POR_MOVIMENTO: int = 1
+  -piloto: String
+  -pontuacao: int
+  -movimentos: int
+  -instanteInicio: long
+  +getEntidades(): List<EntidadeMapa>
+  +moverNave(direcao: Direcao): boolean
+  +embarcarNaPosicaoAtual(): Passageiro
+  +moverInimigos(random: Random): void
+  +houveColisao(): boolean
+  +registrarColisao(): void
+  +todosEmbarcados(): boolean
+  +naveNaPlataforma(): boolean
+  +missaoCumprida(): boolean
+  +combustivelEsgotado(): boolean
+  +posicaoOcupada(x: int, y: int): boolean
+  +gerarResultado(venceu: boolean): ResultadoMissao
+}
+
+class LimitesMapa <<value object>> {
+  +{static} TAMANHO_PADRAO: int = 5
+  -minX: int
+  -maxX: int
+  -minY: int
+  -maxY: int
+  +contem(x: int, y: int): boolean
+  +getTamanho(): int
+}
+
+class ResultadoMissao <<imutável>> {
+  -piloto: String
+  -pontuacao: int
+  -movimentos: int
+  -passageirosResgatados: int
+  -duracaoSegundos: long
+  -venceu: boolean
+  +venceu(): boolean
+}
+
+class RankingEntry <<imutável>> {
+  -piloto: String
+  -pontuacao: int
+  -passageirosResgatados: int
+  -dataHora: String
+  -duracaoSegundos: long
+}
+
+enum Dificuldade {
+  FACIL
+  MEDIO
+  DIFICIL
+  --
+  -pontuacaoInicial: int
+  -quantidadePassageiros: int
+  -quantidadeAsteroides: int
+  -quantidadeInimigos: int
+  +{static} deTexto(texto: String): Dificuldade
+}
+
+enum Direcao {
+  CIMA
+  BAIXO
+  ESQUERDA
+  DIREITA
+  --
+  -tecla: char
+  -deslocamentoX: int
+  -deslocamentoY: int
+  +{static} deTecla(tecla: char): Direcao
+}
+
+interface CriadorPassageiro <<functional>> {
+  +criar(indice: int, x: int, y: int): Passageiro
+}
+
+' Realização de interfaces
+EntidadeMapa ..|> Posicionavel
+Movel --|> Posicionavel
+Nave ..|> Movel
+Inimigo ..|> Movel
+
+' Herança
+EntidadeMapa <|-- Passageiro
+EntidadeMapa <|-- Nave
+EntidadeMapa <|-- Asteroide
+EntidadeMapa <|-- Inimigo
+EntidadeMapa <|-- Plataforma
+Passageiro <|-- Professor
+Passageiro <|-- Engenheiro
+Passageiro <|-- Astronauta
+
+' Composição: a missão é dona das entidades do mapa
+Missao *-- "1" Nave : nave
+Missao *-- "1" Plataforma : plataforma
+Missao *-- "0..*" Passageiro : passageiros no mapa
+Missao *-- "0..*" Asteroide : asteroides
+Missao *-- "0..*" Inimigo : inimigos
+Nave o-- "0..capacidade" Passageiro : embarcados
+
+' Associações simples
+Missao --> "1" LimitesMapa : limites
+Missao --> "1" Dificuldade : dificuldade
+Missao ..> Direcao : usa em moverNave
+Missao ..> ResultadoMissao : produz
+RankingEntry --> "1" Dificuldade
+ResultadoMissao --> "1" Dificuldade
+CriadorPassageiro ..> Passageiro : cria
+
+note right of EntidadeMapa
+  getSimbolo() é o que permite a
+  camada de apresentação desenhar
+  qualquer entidade sem instanceof.
+  Novo tipo de entidade aparece no
+  mapa sem alterar o renderizador (OCP).
+end note
+
+note bottom of Passageiro
+  Abstrata de propósito: não existe
+  "passageiro genérico". O compilador
+  cobra pontuação, tipo e símbolo de
+  cada subclasse, o que sustenta o LSP.
+end note
+
+note right of Movel
+  Separada de Posicionavel porque
+  Asteroide e Plataforma têm posição
+  mas nunca se movem (ISP).
+end note
+
+@enduml
