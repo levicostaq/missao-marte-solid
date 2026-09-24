@@ -1,0 +1,51 @@
+========================================
+        MISSAO MARTE UNIFOR
+      versao refatorada com SOLID
+========================================
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Histórico de Ranking
+4. Sair do Jogo
+Escolha uma opção: 
+--- RANKING TOP 5 ---
+1. LEVI - 73 pts | Fácil | 4 passageiros | 0s | 17/09/2026 19:01
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Histórico de Ranking
+4. Sair do Jogo
+Escolha uma opção: Opção inválida.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Histórico de Ranking
+4. Sair do Jogo
+Escolha uma opção: Tem certeza que deseja apagar o ranking? (s/n): Operação cancelada.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Histórico de Ranking
+4. Sair do Jogo
+Escolha uma opção: Tem certeza que deseja apagar o ranking? (s/n): Ranking resetado.
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Histórico de Ranking
+4. Sair do Jogo
+Escolha uma opção: 
+--- RANKING TOP 5 ---
+Nenhum registro ainda. Seja o primeiro!
+
+--- MENU PRINCIPAL ---
+1. Iniciar Nova Missão
+2. Visualizar Ranking Top 5
+3. Resetar Histórico de Ranking
+4. Sair do Jogo
+Escolha uma opção: 
+Obrigado por jogar Missão Marte Unifor!

@@ -1,0 +1,76 @@
+  ok   nave começa na plataforma
+  ok   missão não está cumprida no início
+  ok   passageiro embarcado na casa correta
+  ok   todos embarcados após o resgate
+  ok   resgatar todos não basta para vencer
+  ok   vitória após pousar em (0,0)
+  ok   Professor concede 10 pontos
+  ok   Engenheiro concede 15 pontos
+  ok   Astronauta concede 20 pontos
+  ok   dois movimentos custam dois pontos
+  ok   contador de movimentos atualizado
+  ok   primeiro movimento dentro do mapa
+  ok   movimento além da borda é recusado
+  ok   nave permanece na borda
+  ok   movimento recusado não cobra combustível
+  ok   movimento recusado não conta como movimento
+  ok   sem colisão antes de entrar na casa do asteroide
+  ok   colisão detectada na casa do asteroide
+  ok   colisão remove uma vida
+  ok   nave destruída quando as vidas acabam
+  ok   vidas não ficam negativas
+  ok   primeiro passageiro embarca
+  ok   nave cheia recusa o segundo
+  ok   o segundo continua no mapa
+  ok   lista de passageiros da nave é imutável
+  ok   quantidade de passageiros vem da dificuldade
+  ok   quantidade de asteroides vem da dificuldade
+  ok   quantidade de inimigos vem da dificuldade
+  ok   capacidade da nave comporta todos os passageiros
+  ok   nenhuma entidade sorteada se sobrepõe ou ocupa (0,0)
+  ok   sorteio alterna os tipos de passageiro
+  ok   inimigo respeita os limites em 500 turnos
+  ok   cada entidade fornece o próprio símbolo
+  ok   nave aparece antes das outras entidades na ordem de desenho
+  ok   ranking guarda no máximo 5 posições
+  ok   melhor pontuação em primeiro
+  ok   pior pontuação foi descartada
+  ok   recorde é a primeira posição
+  ok   ranking está em ordem decrescente
+  ok   pontuação menor que a última não classifica
+  ok   pontuação maior que a última classifica
+  ok   derrota não entra no ranking
+  ok   ranking segue vazio após derrota
+  ok   ranking vazio não tem recorde
+  ok   vitória com zero ponto não entra no ranking
+  ok   registro salvo antes do reset
+  ok   reset limpa o ranking
+  ok   reset atinge o repositório
+  ok   arquivo inexistente devolve lista vazia
+  ok   arquivo foi criado
+  ok   uma entrada foi persistida
+  ok   piloto com aspas sobrevive ao JSON
+  ok   pontuação persistida
+  ok   dificuldade persistida
+  ok   passageiros resgatados persistidos
+  ok   duração persistida
+  ok   data e hora persistidas
+  ok   limpar remove o arquivo
+  ok   '1' vira FACIL
+  ok   'facil' vira FACIL
+  ok   'difícil' com acento vira DIFICIL
+  ok   texto vazio cai no padrão MEDIO
+  ok   nulo cai no padrão MEDIO
+  ok   lixo cai no padrão MEDIO
+  ok   FACIL dá mais combustível que DIFICIL
+  ok   DIFICIL tem mais obstáculos que FACIL
+  ok   w sobe
+  ok   s desce
+  ok   a vai para a esquerda
+  ok   d vai para a direita
+  ok   tecla de ação não é direção
+  ok   tecla desconhecida não é direção
+
+-------------------------------------------
+72 verificações, 0 falha(s).
+TODOS OS TESTES PASSARAM.
