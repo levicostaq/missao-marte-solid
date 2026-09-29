@@ -2,6 +2,7 @@
 *.class
 out/
 out-original/
+out-exercicio10/
 bin/
 build/
 target/

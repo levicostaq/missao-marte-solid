@@ -2,12 +2,15 @@
 
 Jogo de console em Java: o piloto controla uma nave em um mapa cartesiano, resgata passageiros, desvia de asteroides e inimigos e precisa pousar de volta na plataforma em (0,0) para cumprir a missão. As cinco melhores pontuações ficam gravadas em `ranking.json`.
 
-Este repositório tem **duas versões do mesmo jogo**, propositalmente:
+Este repositório tem **três versões do mesmo jogo**, propositalmente:
 
 | Pasta | O que é |
 |---|---|
-| `src/missao` | Versão original, entregue na primeira atividade (exercícios 1 a 10). Preservada sem alterações, para comparação. |
+| `src/exercicio10` | Código-base oficial da atividade, copiado sem alterações de [`marcelobezerra-dotcom/solid-tutorial`](https://github.com/marcelobezerra-dotcom/solid-tutorial) (pasta `src/exercicio10`, commit `384c07a`). Preservado para comparação. |
+| `src/missao` | Versão da equipe entregue na primeira atividade (exercícios 1 a 10). Mesmas regras de jogo do código-base; foi o ponto de partida da refatoração. Preservada sem alterações. |
 | `src/solidexercicio10` | Versão refatorada com os princípios SOLID, entregue nesta atividade. Mesmo jogo, mesmo comportamento, organizado em camadas. |
+
+As comparações de tamanho citadas neste README e na revisão (por exemplo, `Main` com 383 linhas) referem-se a `src/missao`. No código-base do professor a `Main` tem 557 linhas e concentra as mesmas responsabilidades: menu, laço de jogo, sorteio de entidades, desenho do mapa, estatísticas e leitura e gravação do ranking.
 
 ---
 
@@ -43,17 +46,25 @@ javac -encoding UTF-8 -d out (Get-ChildItem -Recurse -Filter *.java src/solidexe
 javac -encoding UTF-8 -d out $(find src/solidexercicio10 -name "*.java")
 ```
 
-### Versão original, para comparação
+### Versões originais, para comparação
 
 **Windows (PowerShell)**
 
 ```powershell
+# código-base do professor
+javac -encoding UTF-8 -d out-exercicio10 (Get-ChildItem -Recurse -Filter *.java src/exercicio10 | ForEach-Object FullName)
+
+# versão da equipe na atividade 1
 javac -encoding UTF-8 -d out-original (Get-ChildItem -Recurse -Filter *.java src/missao | ForEach-Object FullName)
 ```
 
 **Linux / macOS**
 
 ```bash
+# código-base do professor
+javac -encoding UTF-8 -d out-exercicio10 $(find src/exercicio10 -name "*.java")
+
+# versão da equipe na atividade 1
 javac -encoding UTF-8 -d out-original $(find src/missao -name "*.java")
 ```
 
@@ -63,9 +74,14 @@ javac -encoding UTF-8 -d out-original $(find src/missao -name "*.java")
 # versão refatorada
 java -cp out solidexercicio10.Main
 
-# versão original
+# código-base do professor
+java -cp out-exercicio10 exercicio10.Main
+
+# versão da equipe na atividade 1
 java -cp out-original missao.Main
 ```
+
+As três versões usam o mesmo arquivo `ranking.json` na pasta em que são executadas. Para comparar sem misturar os rankings, rode cada uma em uma pasta diferente ou resete o ranking entre as execuções.
 
 No Windows, se os acentos saírem trocados no terminal, rode com:
 
@@ -195,7 +211,8 @@ Mostra os cinco pacotes e a direção das dependências. Os dois pontos que ele 
 ```
 .
 ├── src/
-│   ├── missao/                  versão original preservada (atividade 1)
+│   ├── exercicio10/             código-base oficial do professor, sem alterações
+│   ├── missao/                  versão da equipe na atividade 1, preservada
 │   └── solidexercicio10/        versão refatorada com SOLID
 │       ├── Main.java
 │       ├── model/

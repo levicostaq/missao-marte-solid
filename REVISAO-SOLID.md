@@ -1,7 +1,7 @@
 # Revisão crítica da refatoração SOLID
 
 **Projeto:** Missão Marte Unifor
-**Versão analisada:** `src/solidexercicio10` (refatorada), comparada com `src/missao` (original preservada)
+**Versão analisada:** `src/solidexercicio10` (refatorada), comparada com `src/missao` (versão da equipe na atividade 1, preservada). O código-base oficial do professor está em `src/exercicio10`, também sem alterações; as regras de jogo são as mesmas, e os números da tabela abaixo se referem a `src/missao`.
 **Equipe:** Levi Costa Queiroz (2510500), Pedro Nicolas (2513847), Leonardo Norões (2517418)
 **Disciplina:** Projeto e Arquitetura de Sistemas — UNIFOR
 
